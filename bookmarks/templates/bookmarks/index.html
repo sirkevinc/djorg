@@ -1,11 +1,17 @@
 <h1>Bookmarks</h1>
 
 {% if bookmarks %}
-Bookmarks:
 
 <ol>
   {% for bookmark in bookmarks %}
-  <li><a href="{{ bookmark.url}}">{{ bookmark.name }}</a></li>
+  <li>
+    <a href="{{ bookmark.url}}">{{ bookmark.name }}</a>
+    {% if bookmark.notes %}
+    - {{ bookmark.notes }}
+    {% endif %}
+    <br />
+    Created on: {{bookmark.created_at}}
+  </li>
   {% endfor %}
 </ol>
 {% else %}
