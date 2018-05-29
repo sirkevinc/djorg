@@ -3,10 +3,6 @@ from .models import Note
 
 class NoteSerializer(serializers.HyperlinkedModelSerializer):
 
-  def get_queryset(self):
-    user = self.request.user
-    return Note.objects.filter(user=user, **validated_data)
-
   def create(self, validated_data):
       # import pdb; pdb.set_trace()
     user = self.context['request'].user
@@ -21,3 +17,13 @@ class NoteSerializer(serializers.HyperlinkedModelSerializer):
 class NoteViewSet(viewsets.ModelViewSet):
   serializer_class = NoteSerializer
   queryset = Note.objects.all()
+
+  def get_queryset(self):
+    queryset = Note.objects.all()
+    user = self.request.user.id
+
+    if user:
+      queryset = Note.objects.filter(user=user)
+    else:
+      queryset = Note.objects.none()
+    return queryset
