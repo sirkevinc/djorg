@@ -34,6 +34,8 @@ ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'bookmarks',
+    'notes',
+    'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -77,8 +79,6 @@ WSGI_APPLICATION = 'djorg.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
-db_from_env = dj_database_url.config()
-DATABASES['default'].update(db_from_env)
 
 DATABASES = {
     'default': {
@@ -87,6 +87,8 @@ DATABASES = {
     }
 }
 
+db_from_env = dj_database_url.config()
+DATABASES['default'].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
@@ -131,3 +133,12 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
+# Django REST framework
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        # Use Django's standard django.contrib.auth permission,
+        # or allow read-only access for unauthenticated users
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+    ]
+}
