@@ -19,7 +19,6 @@ class NoteViewSet(viewsets.ModelViewSet):
   queryset = Note.objects.all()
 
   def get_queryset(self):
-    queryset = Note.objects.all()
     user = self.request.user.id
 
     if user:
