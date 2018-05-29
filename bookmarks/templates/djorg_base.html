@@ -7,9 +7,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-  Welcome to Djorg
+  {% if user.is_authenticated %}
+    Welcome to Djorg, {{ user.username }}!
+    <p><a href="{% url 'logout' %}">Logout</a></p>
+  {% else %}
+    <p>You are not logged in</p>
+    <a href="{% url 'login' %}">Login</a>
+  {% endif %}
+  <a href="{% url 'signup' %}">Sign Up</a>
+  <br />
+  <a href="/api/notes">Notes</a>
 </body>
-</html>
-<html>
-
 </html>
