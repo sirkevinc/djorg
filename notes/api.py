@@ -19,10 +19,10 @@ class NoteViewSet(viewsets.ModelViewSet):
   queryset = Note.objects.all()
 
   def get_queryset(self):
-    user = self.request.user.id
+    user = self.request.user
 
-    if user:
-      queryset = Note.objects.filter(user=user)
-    else:
+    if user.is_anonymous:
       queryset = Note.objects.none()
+    else:
+      queryset = Note.objects.filter(user=user)
     return queryset

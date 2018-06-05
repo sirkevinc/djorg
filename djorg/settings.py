@@ -37,6 +37,9 @@ INSTALLED_APPS = [
     'notes',
     'accounts',
     'rest_framework',
+    'graphene_django',
+    'corsheaders',
+    'rest_framework.authtoken',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -46,6 +49,8 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -136,7 +141,14 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 # Django REST framework
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication, TokenAuthentication
+
 REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ),
     'DEFAULT_PERMISSION_CLASSES': [
         # Use Django's standard django.contrib.auth permission,
         # or allow read-only access for unauthenticated users
@@ -146,3 +158,12 @@ REST_FRAMEWORK = {
 
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
+
+# Graphene
+GRAPHENE = {
+    'SCHEMA': 'notes.schema.schema' # dir.filename.varname
+}
+
+CORS_ORIGIN_WHITELIST = (
+    'localhost:3000/'
+)

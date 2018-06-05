@@ -1,6 +1,10 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html>
 <head>
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="{% static 'css/test.css' %}">
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Djorg</title>
@@ -8,10 +12,12 @@
 </head>
 <body>
   {% if user.is_authenticated %}
-    Welcome to Djorg, {{ user.username }}!
+    <h1>
+      Welcome to Djorg, {{ user.username }}!
+    </h1>
     <p><a href="{% url 'logout' %}">Logout</a></p>
   {% else %}
-    <p>You are not logged in</p>
+    <h1>You are not logged in</h1>
     <a href="{% url 'login' %}">Login</a>
   {% endif %}
   <a href="{% url 'signup' %}">Sign Up</a>
